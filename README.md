@@ -225,7 +225,7 @@ flatpak update
 ---
 
 ## Weitere:
-- [Install-Script](/Beilagen/Scripts/fedora_install.sh)
+- [Install-Script](/fedora_install.sh)
 
 
 
