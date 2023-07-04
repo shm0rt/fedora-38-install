@@ -240,9 +240,3 @@ Reboot ()  {
   sudo reboot
 }
 main
-
-
-
-## awk
-## cp
-## cat
