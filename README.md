@@ -32,40 +32,36 @@ After you have completed everything, it should look similar to this:
 ![Screenshot from 2023-06-28 10-51-59](https://github.com/shm0rt/fedora-38-install/assets/126892002/f3339497-db48-4d90-ba04-989c29e30b0e)
 
 ---
-# Nach der Installation
-
-## Dunkler Modus
-
+# After the Installation
+## Dark Mode
 ```bash
 gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'        # Legacy apps
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'      # new apps
 ```
 
 ---
-## Geräte-Namen ändern
-Um den Geräte-Namen zu ändern öffnen Sie den Terminal und fügen Sie folgendes ein:
+## Renaming Device Name
+Replace <device-name> with the new name of your device. For example:
 ```bash
-hostnamectl set-hostname <gereate-name>
-```
-
-Ändern Sie den ```<gereate-name>``` durch den neuen Namen Ihres Gerätes. Zum Beispiel:
-```bash
-hostnamectl set-hostname inf-nb-tux01
+hostnamectl set-hostname <device-name>
 ```
 
 ---
-## dnf einstellen
-Um das System ein wenig zu beschleunigen bearbeiten Sie den _dnf.conf_. 
-Folgendes wurde geändert:
-- Schnellere Installation (fastest_mirror, max_parallel_downloads)
-- Immer Ja (defaultyes)
 
-Die Option _defaultyes_ erlaubt es mit der ENTER-Taste die Eingabe mit Ja bestätigen. Zum Beispiel: anstatt folgendes eintippen ```sudo apt-get update -y``` gibt ihr folgendes ein:
-```sudo apt-get update``` und bestätigt es mit der ENTER-Taste
+## Configuring dnf
+To speed up the system, edit the dnf.conf file. The following changes have been made:
+- Faster installation (_fastest_mirror_, _max_parallel_downloads_)
+- Always Yes (_defaultyes_)
+
+The _defaultyes_ option allows you to confirm input with Yes by pressing the ENTER key. For example, instead of typing ```sudo apt-get update -y```, you can simply enter ```sudo apt-get update``` and confirm it by pressing the ENTER key.
 
 Ändern Sie den File wie folgend:
 - Öffnen Sie den Terminal und geben Sie dies hinein: `sudo nano /etc/dnf/dnf.conf` 
 - Kopieren Sie den Text und ersetzen Sie ihn durch den folgenden Text:
+To make the changes, follow these steps:
+
+Open the terminal and enter the command: `sudo nano /etc/dnf/dnf.conf`
+Copy the text below and replace the existing text in the file:
 
 ```bash
 [main] 
@@ -80,47 +76,54 @@ deltarpm=true
 defaultyes=True
 ```
 
->[!info]+
->Das Plugin `fastestmirror=1` kann manchmal kontraproduktiv sein. Verwenden Sie es nach eigenem Ermessen. Setzen Sie es auf `fastestmirror=0`, wenn Sie mit schlechten Download-Geschwindigkeiten konfrontiert sind. Viele Benutzer haben von besseren Download-Geschwindigkeiten berichtet, wenn das Plugin aktiviert ist. Daher ist es standardmäßig aktiviert.
+After replacing the text, save the file by pressing `Ctrl + X`, then `Y` to confirm, and Enter to exit the nano editor.
+
+> Note:
+> The `fastestmirror=1` plugin can sometimes be counterproductive. Use it at your own discretion. If you encounter slow download speeds, set it to fastestmirror=0. Many users have reported better download speeds when the plugin is enabled. Therefore, it is enabled by default.
 
 ---
-## Nvidia Treiber
-Mit der Installation von den Nvidia-Treiber haben Sie die Möglichkeit auf die:
-- Grafikbeschleunigung
-- CUDA-Unterstützung
-- Mehrere Monitorunterstützung
+## Nvidia Drivers
+By installing the Nvidia drivers, you gain access to:
 
-Sie können selber auswählen welche Treiber Sie wollen:
-- Nouveau (Open-Source)
-- Cuda (proprietär)
-- RPM Fusion (proprietär)
+Graphics acceleration
+CUDA support
+Multi-monitor support
+You can choose from the following driver options:
 
-Der Unterschied zwischen den genannten Treiberoptionen liegt in ihrer Quelle, Lizenzierung und den mitgelieferten Funktionen. Nouveau ist ein quellenoffener Treiber, der von der Linux-Community entwickelt wird und grundlegende Grafikkartenunterstützung bietet. Der CUDA-Treiber ist ein proprietärer Treiber von Nvidia, der speziell für CUDA-Berechnungen entwickelt wurde und die parallele Rechenleistung der Nvidia-GPUs voll ausschöpft. RPM Fusion bietet proprietäre Nvidia-Treiber als Teil seines Software-Repositories für RPM-basierte Linux-Distributionen an, um Benutzern den Zugriff auf die neuesten Treiberversionen zu ermöglichen.
+Nouveau (Open-Source)
+Cuda (proprietary)
+RPM Fusion (proprietary)
+
+The difference between the mentioned driver options lies in their source, licensing, and included features. Nouveau is an open-source driver developed by the Linux community and provides basic graphics card support. The CUDA driver is a proprietary driver by Nvidia specifically designed for CUDA computations, leveraging the parallel computing power of Nvidia GPUs. RPM Fusion offers proprietary Nvidia drivers as part of its software repository for RPM-based Linux distributions, providing users access to the latest driver versions.
 
 ### Cuda
-Fügen Sie die Repository hinzu:
+Add the repository:
 ```bash
 sudo dnf config-manager --add-repo https://developer.download.nvidia.com/compute/cuda/repos/fedora37/x86_64/cuda-fedora37.repo
 ```
 
-Installieren Sie die Abhängigkeiten:
+Install the dependencies:
 ```bash
 sudo dnf install -y kernel-headers kernel-devel tar bzip2 make automake gcc gcc-c++ pciutils elfutils-libelf-devel libglvnd-opengl libglvnd-glx libglvnd-devel acpid pkgconfig dkms
 ```
 
-Installieren Sie die Treiber:
+Install the drivers:
 ```bash
 sudo dnf module install -y nvidia-driver:latest-dkms
 ```
 
 ### RPM Fusion
 
-RPM Fusion ermöglicht den Zugriff auf nicht-freie Softwarepakete, die in den offiziellen Fedora-Repositories aus rechtlichen oder lizenztechnischen Gründen nicht verfügbar sind. Dazu gehören proprietäre Treiber, Codecs für Multimedia-Wiedergabe, bestimmte Anwendungen und Erweiterungen. Um die RPM zu installieren und zu aktivieren:
+RPM Fusion provides access to non-free software packages that are not available in the official Fedora repositories due to legal or licensing reasons. This includes proprietary drivers, multimedia playback codecs, certain applications, and extensions. To install and enable RPM Fusion, follow these steps:
 
 ```bash
-sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-```
+# Install RPM Fusion for Fedora 38
+sudo dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-37.noarch.rpm
+sudo dnf install -y https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-37.noarch.rpm
 
+# Enable the RPM Fusion repositories
+sudo dnf config-manager --set-enabled rpmfusion-free rpmfusion-nonfree
+```
 ---
 ## Appstream Metadaten
 [AppStream](https://www.freedesktop.org/wiki/Distributions/AppStream/) verwendet ein XML-basiertes Datenformat, um Metadaten für Anwendungen zu definieren. Diese Metadaten umfassen Informationen wie Anwendungsnamen, Beschreibungen, Kategorien, Lizenzen, Entwicklerdetails, Abhängigkeiten, unterstützte Sprachen und mehr. Die Metadaten dienen dazu, Benutzern umfassende Informationen über verfügbare Anwendungen bereitzustellen.
