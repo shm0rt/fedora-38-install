@@ -79,7 +79,7 @@ defaultyes=True
 After replacing the text, save the file by pressing `Ctrl + X`, then `Y` to confirm, and Enter to exit the nano editor.
 
 > Note:
-> The `fastestmirror=1` plugin can sometimes be counterproductive. Use it at your own discretion. If you encounter slow download speeds, set it to fastestmirror=0. Many users have reported better download speeds when the plugin is enabled. Therefore, it is enabled by default.
+> The `fastestmirror=1` plugin can sometimes be counterproductive. Use it at your own discretion. If you encounter slow download speeds, set it to `fastestmirror=0`. Many users have reported better download speeds when the plugin is enabled. Therefore, it is enabled by default.
 
 ---
 ## Nvidia Drivers
@@ -124,25 +124,28 @@ sudo dnf install -y https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-non
 # Enable the RPM Fusion repositories
 sudo dnf config-manager --set-enabled rpmfusion-free rpmfusion-nonfree
 ```
----
-## Appstream Metadaten
-[AppStream](https://www.freedesktop.org/wiki/Distributions/AppStream/) verwendet ein XML-basiertes Datenformat, um Metadaten für Anwendungen zu definieren. Diese Metadaten umfassen Informationen wie Anwendungsnamen, Beschreibungen, Kategorien, Lizenzen, Entwicklerdetails, Abhängigkeiten, unterstützte Sprachen und mehr. Die Metadaten dienen dazu, Benutzern umfassende Informationen über verfügbare Anwendungen bereitzustellen.
+After executing these commands, RPM Fusion will be installed and enabled on your system, allowing you to access the additional software packages it provides.
 
-Um den App-Stream-Metadaten auf den neuesten Stand zu bringen, geben Sie folgendes in den Terminal ein:
+---
+## Appstream Metadata
+[AppStream](https://www.freedesktop.org/wiki/Distributions/AppStream/) uses an XML-based data format to define metadata for applications. This metadata includes information such as application names, descriptions, categories, licenses, developer details, dependencies, supported languages, and more. The metadata is meant to provide users with comprehensive information about available applications.
+
+To update the AppStream metadata to the latest version, enter the following command in the terminal:
 ```bash
 sudo dnf groupupdate core
 ```
- 
+Executing this command will update the AppStream metadata for your system, ensuring that you have the most up-to-date information about available applications.
+
 ---
 ## Update 
-Um dein System zu _aktualisieren_:
-- ```sudo dnf update -y```
+To _update_ your system, use the following command:
+```sudo dnf update -y```
 
-Um dein System zu _upgraden_:
-- ```sudo dnf upgrade -y```
+To _upgrade_ your system, use the following command:
+```sudo dnf upgrade -y```
 
-Um Änderungen anzuwenden, neue Module zu laden und alte Module zu entladen:
-- ```sudo reboot```
+To apply changes, load new modules, and unload old modules, use the following command:
+```sudo reboot```
 
 **_Oneliner:_**
 ```bash
@@ -152,24 +155,25 @@ sudo dnf update -y && sudo dnf upgrade -y && sudo reboot
 ---
 ## Firmware ([fwupd](https://wiki.archlinux.org/title/Fwupd))
 
-Wenn Ihr System Firmware-Update durch lvfs unterstützt, updaten Sie ihr Gerät mithilfe wie folgt:
-- Den Firmware-Update Dienst herunterladen:
+If your system supports firmware updates via lvfs, you can update your device using the following steps:
+
+1. Install the firmware update service:
 ```sudo dnf install fwupd```
 
-- Den fwupd.service starten und beim Start ausführen:
+2. Start and enable the fwupd service on startup:
 ```sudo systemctl start fwupd```
 ```sudo systemctl enable fwupd```
 
-- Um alle Geräte anzuzeigen, die von fwupd erkennt worden sind:
+3. To display all devices detected by fwupd:
 ```sudo fwupdmgr get-devices```
 
-- Um die neusten Metadaten herunterzuladen:
+4. To download the latest metadata:
 ```sudo fwupdmgr refresh --force```
 
-- Zur Auflistung der verfügbaren Updates für alle Geräte auf dem System:
+5. To list available updates for all devices on the system:
 ```sudo fwupdmgr get-updates```
 
-- Um alle Updates zu installieren:
+6. To install all updates:
 ```sudo fwupdmgr update```
 
 **_Oneliner:_**
@@ -180,7 +184,7 @@ sudo dnf install fwupd && sudo systemctl start fwupd && sudo systemctl enable fw
 ---
 
 ## Media Codecs
-Installieren Sie folgende Module um korrekte Multimedia Playback zu erhalten:
+To ensure proper multimedia playback, install the following modules:
 ```bash
 sudo dnf install gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel
 sudo dnf install lame\* --exclude=lame-devel
@@ -191,46 +195,59 @@ sudo dnf groupupdate multimedia sound-and-video
 sudo dnf install ffmpeg-libs
 ```
 
-### Weitere Verbesserungs-Möglichkeiten
+### Further Enhancements
 - [Video I/O hardware acceleration, Video Decoding with VA-API ](https://github.com/opencv/opencv/wiki/Video-IO-hardware-acceleration)
 - [OpenH264 für Firefox](https://docs.fedoraproject.org/de/quick-docs/openh264/)
 ---
 
 ## Update Flatpak
-Fedora 38 kommt mit Flatpak schon vorinstalliert, aber nicht aktiviert. Fügen Sie folgende Befehle aus, um flathub repo zu aktivieren und flatpak auf den neusten Stand bringen:
+Fedora 38 comes with Flatpak pre-installed but not enabled. To enable the Flathub repository and update Flatpak to the latest version, use the following commands:
 ```bash
 flatpak remote-delete flathub
 flatpak remote-delete fedora
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak update
 ```
+These commands will remove the existing Flathub and Fedora remotes, add the Flathub repository if it doesn't already exist, and then update Flatpak to the latest version.
+
+After executing these commands, Flatpak will be updated and ready to use with the Flathub repository enabled.
+
 ---
 
 ## Tools
-- Für komprimierte Files (7z, rar):
+- For compressed files (7z, rar):
 ```sudo dnf install -y unzip p7zip p7zip-plugins unrar```
-- Für GNOME:
+- For GNOME:
 ```sudo dnf install -y gnome-tweaks gnome-network-displays```
-- Für Fedora:
+- For Fedora:
  ```sudo dnf install -y packageKit timeshift grub-customizer dconf-editor```
- - Von Flatpak:
- ```sudo flatpak install -y com.mattjakeman.ExtensionManager com.github.tchx84.Flatseal```
+- From Flatpak:
+```sudo flatpak install -y com.mattjakeman.ExtensionManager com.github.tchx84.Flatseal```
+
+These commands will install the specified tools and applications on your system.
+
 ---
 
-## Thema [Optional]
-### Icons und Zeiger
+## Theme [Optional]
+### Icons and Cursors
 - [Oxygen-Cursors](https://github.com/wo2ni/Oxygen-Cursors)
 - [Papirus Icon Theme]](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme)
 
-### Thema in Flatpaks nutzen
-* `sudo flatpak override --filesystem=$HOME/.themes`
-* `sudo flatpak override --env=GTK_THEME=my-theme` 
+### Using Theme in Flatpaks
+```bash
+sudo flatpak override --filesystem=$HOME/.themes
+sudo flatpak override --env=GTK_THEME=my-theme
+# For the papirus-icon theme
+sudo flatpak override --env=GTK_THEME=papirus-icon-theme
+```
+
+By following these instructions, you can install the Oxygen-Cursors and Papirus Icon Theme for your system. Additionally, the commands allow you to use a custom theme in Flatpak applications by overriding the filesystem and setting the GTK_THEME environment variable. Replace my-theme with the name of your desired theme.
 
 ---
 
-## Weitere:
+## Additional:
 - [Install-Script](/fedora_install.sh)
-
+The link above provides an install script for Fedora. You can use it to automate the installation of various packages and configurations. Please note that the script is provided as-is and should be reviewed before execution to ensure it meets your requirements and aligns with your system setup.
 
 
 
