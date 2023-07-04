@@ -49,43 +49,43 @@ main () {
       ;;
     1)
       DarkMode
-      DONE;;
+      again;;
     2)
       DeleteApps
-      DONE;;
+      again;;
     3)
       Hostname-Import
-      DONE;;
+      again;;
     4)
       Update+Upgrade,FirmwareUpdate
-      DONE;;
+      again;;
     5)
       NvidiaGPU
-      DONE;;
+      again;;
     6)
       Virt
-      DONE;;
+      again;;
     7)
       Apps
-      DONE;;
+      again;;
     8)
       MediaCodecs
-      DONE;;
+      again;;
     9)
       VideoAcceleration
-      DONE;;
+      again;;
     10)
       BatteryLife
-      DONE;;
+      again;;
     11)
       Themes-Icons
-      DONE;;
+      again;;
     12)
       Terminal
-      DONE;;
+      again;;
     0)
       Reboot
-      DONE;;
+      again;;
     *)
       echo 'Wrong input'
       sleep 1
@@ -94,7 +94,7 @@ main () {
 
   
 }
-DONE () {
+again () {
   echo 'Done..'
   sleep 2
   main
