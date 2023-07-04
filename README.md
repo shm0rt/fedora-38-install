@@ -1,34 +1,35 @@
 # fedora-38-install
 # Installation
+After creating the USB stick, you should follow the following steps:
 
-Nach der Erstellung des USB-Sticks sollten Sie folgende Schritte befolgen:
-1. Im BIOS den Secure Boot deaktivieren und die Virtualisierung aktivieren (falls noch nicht aktiviert).
-2. Booten Sie von dem USB-Stick mit der Live-ISO.
-3. Wählen Sie die Systemsprache, Tastatur-Layout und die Zeit-Zone aus.
-4. Bei der Auswahl des Speichers, auf dem das System installiert werden soll, wählen Sie die Festplatte aus und kreuzen Sie den untenstehenden Punkt an:
+Disable Secure Boot and enable virtualization in the BIOS (if not already enabled).
+Boot from the USB stick with the live ISO.
+Select the system language, keyboard layout, and time zone.
+When selecting the storage on which the system should be installed, choose the hard drive and check the option below:
 
-![[Pasted image 20230628094356.png]]
+![Pasted image 20230628094356](https://github.com/shm0rt/fedora-38-install/assets/126892002/dee10fb9-03ca-414f-a30b-ed4947bf93c3)
 
-Nach diesen Schritten werden Sie auf die nächste Seite weitergeleitet. Hier können Sie auswählen, ob Sie die Festplatte verschlüsseln wollen und welches Dateisystem Sie verwenden möchten. Da ich [*Timeshift*](https://github.com/linuxmint/timeshift) nutzen will, empfehle ich Ihnen, das **_btrfs_** Dateisystem zu verwenden, da die Wiederherstellung dabei deutlich schneller ist. 
+After following these steps, you will be redirected to the next page. Here, you can choose whether you want to encrypt the hard drive and which file system you want to use. Since I want to use [*Timeshift*](https://github.com/linuxmint/timeshift), I recommend using the btrfs file system as it provides faster restoration.
 
-> **_Bemerkung:_** 
-> Wenn Sie das Laufwerk verschlüsseln wollen, dann sollten Sie dabei folgendes beachten: 
-> - Beim Passworteingabe haben Sie immer noch die amerikanische Tastatur-Layout 
-> - Jedes Mal bei einem Neustart müssen Sie das Passwort eingeben
+> Note:
+> If you want to encrypt the drive, please consider the following:
+> - The keyboard layout will remain as American during password entry.
+> - You will need to enter the password every time you start the system.
 
-![[Pasted image 20230628100419.png]]
+![Pasted image 20230628100419](https://github.com/shm0rt/fedora-38-install/assets/126892002/ab56518f-92b4-4116-b682-1301b5a1f3d1)
 
-Klicken Sie wie auf dem Bild den markierten Text an, um die automatische Partitionierung durchzuführen. Damit **_Timeshift_** das Dateisystem lesen kann, sollten zwei Ordner umbenannt werden: 
-- Der Root-Ordner wird zu ```@``` umbenannt 
-- Der Home-Ordner wird zu ```@home``` umbenannt 
+Click on the highlighted text as shown in the image to perform automatic partitioning. In order for Timeshift to read the file system correctly, two folders should be renamed:
 
-Um den Ordner umzubenennen, gehen Sie wie folgt vor: 
-1. Klicken Sie auf den entsprechenden Ordner 
-2. Geben Sie unten rechts den korrekten Namen ein 
-3. Klicken Sie auf den Knopf ```Einstellungen Übernehmen```
+Rename the root folder to @
+Rename the home folder to @home
+To rename the folder, follow these steps:
 
-Nachdem Sie alles gemacht haben sollte es ungefähr so aussehen:
-![[Screenshot from 2023-06-28 10-51-59.png]]
+1. Click on the respective folder.
+2. Enter the correct name in the bottom right corner.
+3. Click on the "Apply Settings" button.
+
+After you have completed everything, it should look similar to this:
+![Screenshot from 2023-06-28 10-51-59](https://github.com/shm0rt/fedora-38-install/assets/126892002/f3339497-db48-4d90-ba04-989c29e30b0e)
 
 ---
 # Nach der Installation
