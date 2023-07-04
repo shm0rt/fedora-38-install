@@ -231,7 +231,7 @@ These commands will install the specified tools and applications on your system.
 ## Theme [Optional]
 ### Icons and Cursors
 - [Oxygen-Cursors](https://github.com/wo2ni/Oxygen-Cursors)
-- [Papirus Icon Theme]](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme)
+- [Papirus Icon Theme](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme)
 
 ### Using Theme in Flatpaks
 ```bash
